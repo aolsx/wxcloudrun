@@ -1,19 +1,9 @@
-# https://hub.docker.com/_/node
-FROM node:12-slim
+FROM nginx
 
-# Create and change to the app directory.
-WORKDIR /usr/src/app
+COPY my.conf ./etc/nginx/conf.d/default.conf
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
-# Copying this separately prevents re-running npm install on every code change.
-COPY package*.json ./
+WORKDIR /usr/share/nginx/html
 
-# Install production dependencies.
-RUN npm install --only=production
+COPY dist ./
 
-# Copy local code to the container image.
-COPY . ./
-
-# Run the web service on container startup.
-CMD [ "node", "index.js" ]
+CMD /bin/sh -c 'nginx -g "daemon off;"'
