@@ -1,6 +1,6 @@
 FROM nginx
 
-RUN apt-get update && apt-get install nodejs -y && apt-get install npm -y && apt-get clean
+RUN apt-get install nodejs -y && apt-get install npm -y && apt-get clean
 
 COPY my.conf ./etc/nginx/conf.d/default.conf
 
